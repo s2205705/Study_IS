@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Pathfinder: Code & Conquer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/' + (theme if theme else 'cute') + '_mode.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="{{ theme if theme else 'cute' }}-theme">
+    <nav class="navbar {{ theme if theme else 'cute' }}">
+        <a href="{{ url_for('dashboard') }}" class="logo {{ theme if theme else 'cute' }}">
+            <i class="fas fa-code"></i> Python Pathfinder
+        </a>
+        <div class="nav-links">
+            <a href="{{ url_for('dashboard') }}" class="nav-link {{ theme if theme else 'cute' }}">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a href="{{ url_for('game', level=1) }}" class="nav-link {{ theme if theme else 'cute' }}">
+                <i class="fas fa-gamepad"></i> Play
+            </a>
+            <a href="{{ url_for('multiplayer') }}" class="nav-link {{ theme if theme else 'cute' }}">
+                <i class="fas fa-users"></i> Multiplayer
+            </a>
+            <a href="{{ url_for('lessons', topic='python_basics') }}" class="nav-link {{ theme if theme else 'cute' }}">
+                <i class="fas fa-book"></i> Lessons
+            </a>
+            {% if session.username %}
+            <span class="user-greeting {{ theme if theme else 'cute' }}">
+                <i class="fas fa-user"></i> {{ session.username }}
+            </span>
+            <a href="{{ url_for('logout') }}" class="nav-link {{ theme if theme else 'cute' }}">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+            {% else %}
+            <a href="{{ url_for('login') }}" class="nav-link {{ theme if theme else 'cute' }}">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+            {% endif %}
+            <button id="themeToggle" class="btn {{ theme if theme else 'cute' }} small">
+                Switch to {{ 'Deadly' if theme == 'cute' else 'Cute' }} Mode
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="{{ theme if theme else 'cute' }}-footer">
+        <div class="footer-content">
+            <p>Python Pathfinder: Code & Conquer &copy; 2024</p>
+            <p>Learn Python and Web Development through play!</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms of Service</a> | 
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/code_editor.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

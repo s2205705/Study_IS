@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="game-container {{ theme }}">
+    <div class="game-sidebar">
+        <div class="level-info {{ theme }}">
+            <h2 class="level-title">Level <span id="levelNumber">{{ level }}</span></h2>
+            <h3 id="levelTitle">{{ challenge.title if challenge else 'Python Basics' }}</h3>
+            
+            <div class="progress-container {{ theme }}">
+                <div id="progressBar" class="progress-bar {{ theme }}" style="width: ('{{ (level/10)*100 }}%')"></div>
+            </div>
+            
+            <div class="stats {{ theme }}">
+                <div class="stat">
+                    <i class="fas fa-star"></i>
+                    <span>Score: <span id="scoreValue">0</span></span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-trophy"></i>
+                    <span>Level: {{ level }}/10</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="challenge-description {{ theme }}">
+            <h3><i class="fas fa-question-circle"></i> Challenge</h3>
+            <p id="challengeText">{{ challenge.description if challenge else 'Complete the coding challenge' }}</p>
+            
+            <div class="hint-box {{ theme }}">
+                <h4><i class="fas fa-lightbulb"></i> Hint</h4>
+                <p>{{ challenge.hint if challenge and challenge.hint else 'Read the instructions carefully and test your code before submitting.' }}</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="runCode" class="btn {{ theme }}">
+                <i class="fas fa-play"></i> Run Code
+            </button>
+            <button id="submitCode" class="btn {{ theme }}">
+                <i class="fas fa-check"></i> Submit Solution
+            </button>
+            <button id="nextLevel" class="btn {{ theme }}" disabled>
+                <i class="fas fa-arrow-right"></i> Next Level
+            </button>
+        </div>
+    </div>
+    
+    <div class="game-main">
+        <div class="code-editor">
+            <div class="editor-header {{ theme }}">
+                <span><i class="fas fa-code"></i> editor.py</span>
+                <div class="editor-actions">
+                    <button class="editor-btn" title="Format code">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button class="editor-btn" title="Reset code">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+            </div>
+            <textarea id="codeInput" class="{{ theme }}" spellcheck="false">
+# {{ challenge.title if challenge else 'Python Challenge' }}
+# {{ challenge.description if challenge else 'Write your solution here' }}
+
+# Your code goes below this line
+
+            </textarea>
+        </div>
+        
+        <div class="game-output {{ theme }}">
+            <h3><i class="fas fa-terminal"></i> Output</h3>
+            <pre id="output">Run your code to see output here...</pre>
+        </div>
+        
+        {% if theme == 'cute' %}
+        <div class="cute-characters">
+            <div class="character float"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+        </div>
+        {% else %}
+        <div class="deadly-effects">
+            <div class="cyber-character"></div>
+            <div class="hex-grid"></div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
